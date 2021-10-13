@@ -14,7 +14,7 @@ def get_var_char_values(d):
     
 def athena_query(query):
     database = "gdelt"
-    athena_result_bucket = "s3://awsathenagdelt/"
+    athena_result_bucket = "s3://myawsathenagdelt/"
     
     response = client.start_query_execution(
         QueryString=query,
@@ -27,10 +27,12 @@ def athena_query(query):
     )
     
     query_execution_id = response["QueryExecutionId"]
-    location,result = wait_get_result(client,query_execution_id)
-    result_df = transform_to_dataframe(result)
-    
-    return location,result_df
+    try:
+        location,result = wait_get_result(client,query_execution_id)
+        result_df = transform_to_dataframe(result)
+        return location,result_df
+    except:
+        print("No result matches")
     
 
 def wait_get_result(client,query_execution_id):
@@ -44,7 +46,7 @@ def wait_get_result(client,query_execution_id):
             QueryExecutionId = query_execution_id
         )
         status = 'RUNNING'
-        iterations = 360 # 30 mins
+        iterations = 600 # 30 mins
     
         while (iterations > 0):
             iterations = iterations - 1
@@ -65,7 +67,6 @@ def wait_get_result(client,query_execution_id):
                     QueryExecutionId = query_execution_id
                 )
                 result_data = response_query_result['ResultSet']
-                
                 if len(response_query_result['ResultSet']['Rows']) > 1:
                     header = response_query_result['ResultSet']['Rows'][0]
                     rows = response_query_result['ResultSet']['Rows'][1:]
@@ -86,11 +87,7 @@ def transform_to_dataframe(result):
         df.iloc[i] = pd.Series(result[i])
     return df
     
-        
-        
-        
-        
-        
+
 if  __name__=="__main__":
     query = "SELECT globaleventid, day FROM gdelt.events LIMIT 2"
     location,result = athena_query(query)
