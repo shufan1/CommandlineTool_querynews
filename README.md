@@ -1,6 +1,6 @@
 # CommandlineTool_querynews
 
-take sql command from terminal and query the Global Event, Languag and Tone Database with AWS Athena
+take keyword from terminal and query the Global Event, Language and Tone Database with AWS Athena
 ```
 chmod +x <filename>
 ./filename --option xxx
@@ -40,4 +40,5 @@ chmod +x <filename>
 
 
 
-
+**note:
+This CLI Tool only handles small query. Limited to top 20 query, no order
