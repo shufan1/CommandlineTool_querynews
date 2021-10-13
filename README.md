@@ -6,10 +6,10 @@ chmod +x <filename>
 ./filename --option xxx
 ```
 
-## prepareing the data in S3:
+## preparing the data in S3:
 1. create database in AWS Glue
 2. Create an S3 bucket for putting output
-3. In Athena, in settings, point output directory to your S3 bucket
+3. In Athena, in settings, point output directory to your S3 bucket, e.g. s3://myathenagdelt/**!!! Athena and S3 must be in the same region**
 4. In Athena, add the **_event_** table by selecting data from the open S3 bucket:
   ```
   CREATE EXTERNAL TABLE IF NOT EXISTS gdelt.events (
@@ -33,4 +33,11 @@ chmod +x <filename>
   WITH SERDEPROPERTIES ('serialization.format' = '	','field.delim' = '	') LOCATION 's3://gdelt-open-data/events/';
   ```
 5. This result should show up in your S3 bucket
+6. upload eventcode.csv to a folder under S3 (e.g.s3://myathenagdelt/cameocodes)  , and add it to gdelt database with the name gdelt.eventcode.
+   This eventcode.csv is downloaded from https://github.com/tenthe/CAMEO-Event-Data-Codebook
+
+
+
+
+
 
