@@ -1,13 +1,14 @@
 # CommandlineTool_querynews
 
 This is a command line built in the AWS cloud enviornment. It takes keywords from Terminal and query the Global Event, Language and Tone Database with AWS Athena.<br>
-![image](https://user-images.githubusercontent.com/39500675/137047385-9fa6fa59-8b79-4f42-8a3f-921193e51b2e.png)
+![image](https://user-images.githubusercontent.com/39500675/138535294-7c816c03-e831-4f64-8107-3968aa00160e.png)
 ## Example:
 ```
 chmod +x news_cli.py
 ./news_cli.py --yearmonth 201410 --name "BARACK OBAMA" --orderby globaleventid --order ascending
 ```
 ![image](https://user-images.githubusercontent.com/39500675/137047604-c8344c93-91c6-4a4b-a1f0-a78b9d3776d3.png)
+![Uploading image.png…]()
 
 ## Sceheme:
 ![image](https://user-images.githubusercontent.com/39500675/137047902-da75d41e-c4fd-49eb-9fa6-889fe4a81fee.png)
